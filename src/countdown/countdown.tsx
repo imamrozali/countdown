@@ -6,7 +6,8 @@ interface CountdownProps {
 }
 
 const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const thanksAudioRef = useRef<HTMLAudioElement>(null);
+  const musicAudioRef = useRef<HTMLAudioElement>(null);
   const [showMessage, setShowMessage] = useState(false);
 
   const calculateTimeLeft = () => {
@@ -46,7 +47,15 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
     <Fragment>
       <title>Thanks Sandy Setyanagara & Reynaldi Septian Dwiyanto </title>
       <div className="flex flex-col items-center space-y-4 bg-black text-green-500 p-4 rounded-lg">
-        <audio ref={audioRef} loop preload="auto">
+        <audio
+          ref={thanksAudioRef}
+          preload="auto"
+          onEnded={() => musicAudioRef.current?.play()}
+        >
+          <source src="/audio/thanks.wav" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        <audio ref={musicAudioRef} loop preload="auto">
           <source src="/audio/music.mp3" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
@@ -99,8 +108,8 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
           <button
             className="mt-4 disabled:opacity-[0.4] disabled:cursor-not-allowed px-2 py-1 cursor-pointer hover:scale-105 bg-green-500 text-black rounded-md"
             onClick={() => {
-              if (audioRef.current) {
-                audioRef.current.play().catch((err) => {
+              if (thanksAudioRef.current) {
+                thanksAudioRef.current.play().catch((err) => {
                   console.error("Failed to play audio:", err);
                 });
               }
