@@ -25,7 +25,7 @@
   white-space: nowrap;
   border-right: 0.15em solid rgba(255, 255, 255, 0.75);
   animation: typewriter 0.8s steps(40, end) 1s 1 normal both,
-    blinkTextCursor 500ms steps(40, end) infinite normal;
+    blinkTextCursor 800ms steps(40, end) infinite normal;
 }
 
 .animation-delay-0 {
@@ -38,4 +38,20 @@
 
 .animation-delay-4 {
   animation-delay: 1.6s;
+}
+
+.animation-delay-11 {
+  animation-delay: 0s;
+}
+
+.animation-delay-12 {
+  animation-delay: 2s;
+}
+
+.animation-delay-13 {
+  animation-delay: 4s;
+}
+
+.animation-delay-14 {
+  animation-delay: 6s;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CountdownProps {
@@ -7,6 +7,7 @@ interface CountdownProps {
 
 const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [showMessage, setShowMessage] = useState(false);
 
   const calculateTimeLeft = () => {
     const difference = +new Date(targetDate) - +new Date();
@@ -42,61 +43,95 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center space-y-4 bg-black text-green-500 p-4 rounded-lg">
-      <audio ref={audioRef} loop preload="auto">
-        <source src="/audio/music.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
+    <Fragment>
+      <title>Thanks Sandy Setyanagara & Reynaldi Septian Dwiyanto </title>
+      <div className="flex flex-col items-center space-y-4 bg-black text-green-500 p-4 rounded-lg">
+        <audio ref={audioRef} loop preload="auto">
+          <source src="/audio/music.mp3" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
 
-      <div className="border border-green-500 p-4 w-full rounded-lg font-mono bg-black text-green-500">
-        <div className="w-[10rem]">
-          <div className="typewriter text-[2.5rem] animation-delay-0">
-            rm -rf{" "}
+        <div className="border border-green-500 p-4 w-full rounded-lg font-mono bg-black text-green-500">
+          <div className="w-[10rem]">
+            <div className="typewriter text-[2.5rem] animation-delay-0">
+              rm -rf{" "}
+            </div>
           </div>
-        </div>
-        <div className="w-[12.5rem]">
-          <div className="typewriter text-[1rem] animation-delay-2">
-            1. sandy setyanagara
+          <div className="w-[12.5rem]">
+            <div className="typewriter text-[1rem] animation-delay-2">
+              1. sandy setyanagara
+            </div>
           </div>
-        </div>
-        <div className="w-[17.2rem]">
-          <div className="typewriter text-[1rem] animation-delay-4">
-            2. reynaldi septian dwiyanto
+          <div className="w-[17.2rem]">
+            <div className="typewriter text-[1rem] animation-delay-4">
+              2. reynaldi septian dwiyanto
+            </div>
           </div>
+          <div className="w-[38rem]">
+            {showMessage && (
+              <div className="mt-4 typewriter text-left text-green-500 animation-delay-11">
+                Big thanks buat Sandy Setyanagara & Reynaldi Septian Dwiyanto!
+              </div>
+            )}
+          </div>
+          <div className="w-[36.2rem]">
+            {showMessage && (
+              <div className="mt-1 typewriter text-left text-green-500 animation-delay-12">
+                Kalian tuh nggak cuma rekan kerja, tapi bener-bener fondasi
+              </div>
+            )}
+          </div>
+          <div className="w-[36.8rem]">
+            {showMessage && (
+              <div className="mt-1 typewriter text-left text-green-500 animation-delay-13">
+                yang bikin semuanya jalan dengan baik. Nggak tahu deh gimana
+              </div>
+            )}
+          </div>
+          <div className="w-[36rem]">
+            {showMessage && (
+              <div className="mt-1 typewriter text-left text-green-500 animation-delay-14">
+                jadinya tanpa kalian. Sukses terus ya, kalian keren banget!
+              </div>
+            )}
+          </div>
+
+          <button
+            className="mt-4 disabled:opacity-[0.4] disabled:cursor-not-allowed px-2 py-1 cursor-pointer hover:scale-105 bg-green-500 text-black rounded-md"
+            onClick={() => {
+              if (audioRef.current) {
+                audioRef.current.play().catch((err) => {
+                  console.error("Failed to play audio:", err);
+                });
+              }
+              setShowMessage(true);
+            }}
+            disabled={showMessage}
+          >
+            run
+          </button>
         </div>
-        <button
-          className="mt-4 px-2 py-1 cursor-pointer hover:scale-105 bg-green-500 text-black rounded-md"
-          onClick={() => {
-            if (audioRef.current) {
-              audioRef.current.play().catch((err) => {
-                console.error("Failed to play audio:", err);
-              });
-            }
-          }}
-        >
-          run
-        </button>
+        <div className="flex space-x-4 text-center text-[8rem] font-mono">
+          {Object.entries(timeLeft).map(([unit, value]) => (
+            <div key={unit} className="flex flex-col items-center">
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={value}
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.5, opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-[12rem] h-[12rem] bg-black text-green-500 flex items-center justify-center rounded-lg border border-green-500"
+                >
+                  {value}
+                </motion.div>
+              </AnimatePresence>
+              <span className="text-sm uppercase mt-2">{unit}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="flex space-x-4 text-center text-[8rem] font-mono">
-        {Object.entries(timeLeft).map(([unit, value]) => (
-          <div key={unit} className="flex flex-col items-center">
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={value}
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.5, opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-[12rem] h-[12rem] bg-black text-green-500 flex items-center justify-center rounded-lg border border-green-500"
-              >
-                {value}
-              </motion.div>
-            </AnimatePresence>
-            <span className="text-sm uppercase mt-2">{unit}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+    </Fragment>
   );
 };
 
