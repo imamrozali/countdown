@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* Add this CSS to your global CSS file or in a <style> tag */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blinkTextCursor {
+  from {
+    border-right-color: rgba(255, 255, 255, 0.75);
+  }
+  to {
+    border-right-color: transparent;
+  }
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0.15em solid rgba(255, 255, 255, 0.75);
+  animation: typewriter 0.8s steps(40, end) 1s 1 normal both,
+    blinkTextCursor 500ms steps(40, end) infinite normal;
+}
+
+.animation-delay-0 {
+  animation-delay: 0s;
+}
+
+.animation-delay-2 {
+  animation-delay: 0.8s;
+}
+
+.animation-delay-4 {
+  animation-delay: 1.6s;
+}
