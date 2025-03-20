@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import TypewriterParagraph from "./typewriter";
 
 interface CountdownProps {
   targetDate: string;
@@ -46,7 +47,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
   return (
     <Fragment>
       <title>Thanks Sandy Setyanagara & Reynaldi Septian Dwiyanto </title>
-      <div className="flex flex-col items-center space-y-4 bg-black text-green-500 p-4 rounded-lg">
+      <div className="w-screen flex px-12 flex-col items-center space-y-4 bg-black text-green-500 p-4 rounded-lg">
         <audio
           ref={thanksAudioRef}
           preload="auto"
@@ -62,48 +63,31 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
 
         <div className="border border-green-500 p-4 w-full rounded-lg font-mono bg-black text-green-500">
           <div className="w-[10rem]">
-            <div className="typewriter text-[2.5rem] animation-delay-0">
+            <div className="typewriter text-[1rem] md:text-[2.5rem] animation-delay-0">
               rm -rf{" "}
             </div>
           </div>
           <div className="w-[12.5rem]">
-            <div className="typewriter text-[1rem] animation-delay-2">
+            <div className="typewriter text-[0.6rem] md:text-[1rem] animation-delay-2">
               1. sandy setyanagara
             </div>
           </div>
           <div className="w-[17.2rem]">
-            <div className="typewriter text-[1rem] animation-delay-4">
+            <div className="typewriter text-[0.6rem] md:text-[1rem] animation-delay-4">
               2. reynaldi septian dwiyanto
             </div>
           </div>
-          <div className="w-[38rem]">
-            {showMessage && (
-              <div className="mt-4 typewriter text-left text-green-500 animation-delay-11">
-                Big thanks buat Sandy Setyanagara & Reynaldi Septian Dwiyanto!
-              </div>
-            )}
-          </div>
-          <div className="w-[36.2rem]">
-            {showMessage && (
-              <div className="mt-1 typewriter text-left text-green-500 animation-delay-12">
-                Kalian tuh nggak cuma rekan kerja, tapi bener-bener fondasi
-              </div>
-            )}
-          </div>
-          <div className="w-[36.8rem]">
-            {showMessage && (
-              <div className="mt-1 typewriter text-left text-green-500 animation-delay-13">
-                yang bikin semuanya jalan dengan baik. Nggak tahu deh gimana
-              </div>
-            )}
-          </div>
-          <div className="w-[36rem]">
-            {showMessage && (
-              <div className="mt-1 typewriter text-left text-green-500 animation-delay-14">
-                jadinya tanpa kalian. Sukses terus ya, kalian keren banget!
-              </div>
-            )}
-          </div>
+          {showMessage && (
+            <div className="text-[0.6rem] md:text-[1rem]">
+              <TypewriterParagraph
+                text={`Big thanks buat Sandy Setyanagara & Reynaldi Septian Dwiyanto!
+Kalian tuh nggak cuma rekan kerja, tapi bener-bener fondasi yang
+bikin semuanya jalan dengan baik. Nggak tahu deh gimana jadinya
+tanpa kalian. Sukses terus ya, kalian keren banget!`}
+                speed={75}
+              />
+            </div>
+          )}
 
           <button
             className="mt-4 disabled:opacity-[0.4] disabled:cursor-not-allowed px-2 py-1 cursor-pointer hover:scale-105 bg-green-500 text-black rounded-md"
@@ -120,7 +104,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
             run
           </button>
         </div>
-        <div className="flex space-x-4 text-center text-[8rem] font-mono">
+        <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-3 w-full xl:grid-cols-6 gap-5 text-center text-[3rem] sm:text-[8rem] font-mono">
           {Object.entries(timeLeft).map(([unit, value]) => (
             <div key={unit} className="flex flex-col items-center">
               <AnimatePresence mode="popLayout">
@@ -130,7 +114,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.5, opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="w-[12rem] h-[12rem] bg-black text-green-500 flex items-center justify-center rounded-lg border border-green-500"
+                  className="w-full h-[8rem] md:h-[12rem] bg-black text-green-500 flex items-center justify-center rounded-lg border border-green-500"
                 >
                   {value}
                 </motion.div>
