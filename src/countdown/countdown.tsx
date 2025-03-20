@@ -16,10 +16,6 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
 
     if (difference <= 0) return {};
 
-    const years = Math.floor(difference / (1000 * 60 * 60 * 24 * 365));
-    const months = Math.floor(
-      (difference % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30)
-    );
     const days = Math.floor(
       (difference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)
     );
@@ -29,7 +25,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    return { years, months, days, hours, minutes, seconds };
+    return { days, hours, minutes, seconds };
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -104,7 +100,7 @@ tanpa kalian. Sukses terus ya, kalian keren banget!`}
             run
           </button>
         </div>
-        <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-3 w-full xl:grid-cols-6 gap-5 text-center text-[3rem] sm:text-[8rem] font-mono">
+        <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 w-full xl:grid-cols-4 gap-5 text-center text-[3rem] sm:text-[8rem] font-mono">
           {Object.entries(timeLeft).map(([unit, value]) => (
             <div key={unit} className="flex flex-col items-center">
               <AnimatePresence mode="popLayout">
